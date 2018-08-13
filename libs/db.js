@@ -3,8 +3,8 @@
 let Cloudant = require('@cloudant/cloudant');
 
 // Credenciais de acesso ao DB
-var username = 'de52e8a8-9965-4d12-ad2c-fb9757f47c68-bluemix'; // Set this to your own account
-var password = process.env.cloudant_password || 'cd0fbc0aca25a82847228c83a9b065cf4a9815f59a22b948e0c29db23528a152';
+var username = '996ed6da-ff05-45ca-b072-f190e79b4825-bluemix'; // Set this to your own account
+var password = process.env.cloudant_password || '76edff28bb7caf8e91e4b72ce419e6392dbbb38eb2ca34596b2a153640ef1655';
 
 let cloudant = Cloudant({account:username, password:password});
 
@@ -46,7 +46,7 @@ exports.database = async function database(sender,event,name){
 
 exports.insertData = async function insertData(sender){
     doc = dialogStack[sender];
-    let db = cloudant.db.use('relatorios');
+    let db = cloudant.db.use('entrevistas');
     // Verifica se á algum doc que corresponda com a id do usuário.
     db.search('Sender', 'BuscaID', {q: 'id:"' + sender + '"'}, function (er, result) {
         if (er) {
