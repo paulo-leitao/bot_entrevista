@@ -43,4 +43,4 @@ exports.callSendAPI = function callSendAPI(messageData) {
 };
 
 // token da pagina do facebook
-var token = "EAAWrLWYHyAsBAKGvcLDMf9foAyZCtT0GtCJHG8RLq6pHpJGrQk0RxZBuRgjFYl9R6GehgSvs7xUdZAz2a4iuZAIRG3jAwVE10ebK2vMNd4wxi3pCOcf84r8RO2WuJZBpo0DlNPHbZCqAu3PTd5oBj520TrcmSh5JCzg38mW4MCUQZDZD";
+var token = "EAAV76cSStmwBAEyc1HFhGZCHSVfzRJbaPT9wefcxEelYZCaAeVTHQbRzraz6EOFz1TVZAeSAShJ2q3NbycNJllMWtITVjYMvOgZCOmoTHeBzhPpsvlo3VjaTTXluZBIR2ZBqHSjpg7NUolKAFGHHtpb49Ljf0uaJvOrxrFZCzLZCFOvPzvJ8u9FV";

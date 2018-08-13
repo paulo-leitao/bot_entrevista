@@ -1,8 +1,8 @@
 applications:
 - path: .
-  memory: 256M
+  memory: 1024M
   instances: 1
   domain: mybluemix.net
-  name: sefa-assistant-middleware
-  host: sefa-assistant-middleware
+  name: app-name
+  host: app-name
   disk_quota: 1024M

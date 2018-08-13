@@ -9,48 +9,46 @@ var password = process.env.cloudant_password || 'cd0fbc0aca25a82847228c83a9b065c
 let cloudant = Cloudant({account:username, password:password});
 
 // Variáveisa a serem iniciadas
-let senderId = null;
 let inicio = null;
 let data = null;
-let nome = null;
 let entry = null;
 let dialogo = [];
 let _rev = null;
 let doc = [];
 let i=0;
-
+let dialogStack = {};
 
 // Função para armazenar docs
 exports.database = async function database(sender,event,name){
-    senderId = sender;
-    nome = name;
 
     // Armazena a data da primeira iteração
     if (inicio == null){
         inicio = new Date(Date.now()).toUTCString();
     }
     // Armazena a data a cada iteração, tanto do robo quanto do usuário
-        data = new Date(Date.now()).toUTCString();
-        // Mensagens vindas do usuario
-        if (event.message){
-            entry = data +" usuario: "+ event.message.text;
-            dialogo[i++]=entry;
-        } if (event.postback){
-            entry = data +" usuario: "+ event.postback.payload;
-            dialogo[i++]=entry;
-        } if (typeof event === 'string'){
-            entry = data +" robo: "+event;
-            dialogo[i++]=entry;
-        }
+    data = new Date(Date.now()).toUTCString();
+    // Mensagens vindas do usuario
+    if (event.message){
+        entry = data +" usuario: "+ event.message.text;
+        dialogo[i++]=entry;
+    } if (event.postback){
+        entry = data +" usuario: "+ event.postback.payload;
+        dialogo[i++]=entry;
+    } if (typeof event === 'string'){
+        entry = data +" robo: "+event;
+        dialogo[i++]=entry;
+    }
 
-        // A id do documento corresponderá a id do usuário do facebook
-        doc = [{_id:senderId,nome:nome, inicioConversa:inicio, fimConversa:data, dialogo:dialogo}];
+    // A id do documento corresponderá a id do usuário do facebook
+    doc = [{_id:sender,nome:name, inicioConversa:inicio, fimConversa:data, dialogo:dialogo}];
+    dialogStack[sender]=doc;
 };
 
-exports.insertData = async function insertData(){
+exports.insertData = async function insertData(sender){
+    doc = dialogStack[sender];
     let db = cloudant.db.use('relatorios');
     // Verifica se á algum doc que corresponda com a id do usuário.
-    db.search('Sender', 'BuscaID', {q: 'id:"' + senderId + '"'}, function (er, result) {
+    db.search('Sender', 'BuscaID', {q: 'id:"' + sender + '"'}, function (er, result) {
         if (er) {
             throw er;
         }

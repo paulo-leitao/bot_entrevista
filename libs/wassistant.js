@@ -8,9 +8,9 @@ let colors = require('colors');
 // Define as variaveis de integracao com o Watson Assistant
 let w_conversation = watson.conversation({
     url: 'https://gateway.watsonplatform.net/conversation/api',
-    username: process.env.CONVERSATION_USERNAME || '9038adb5-b39b-4e9c-9c28-6cfb885e59fe',
-    password: process.env.CONVERSATION_PASSWORD || 'AOxL2SCRwePZ',
-    path: { workspace_id: 'bfdadb6a-2ec5-4093-bf8b-fd5ab06d7dd2'},
+    username: process.env.CONVERSATION_USERNAME || '6503e1b4-d356-4db8-a110-f6882dd78da5',
+    password: process.env.CONVERSATION_PASSWORD || 'q7JHBFj7EKXH',
+    path: { workspace_id: '9697ff86-341e-4975-8080-450a650a7807'},
     version: 'v1',
     version_date: '2016-07-11'
 });
@@ -67,7 +67,7 @@ exports.callWatson = function callWatson(sender, text) {
                 if (response.output.action === 'end_conversation'){
                     endConversation = true;
                     // ao finalizar a conversa as informações são armazenadas no banco de dados
-                    db.insertData();
+                    db.insertData(sender);
                 }
 
                 // Deleta o contexto para essa conversa
